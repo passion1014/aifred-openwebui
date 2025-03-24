@@ -25,9 +25,10 @@
 	import ChatBubbles from '$lib/components/icons/ChatBubbles.svelte';
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
 
-	import EditUserModal from '$lib/components/admin/Users/UserList/EditUserModal.svelte';
 	import UserChatsModal from '$lib/components/admin/Users/UserList/UserChatsModal.svelte';
-	import AddUserModal from '$lib/components/admin/Users/UserList/AddUserModal.svelte';
+
+	import AddOrgRescModal from './AddOrgRescModal.svelte';
+	import EditdOrgRescModal from './EditdOrgRescModal.svelte';
 
 	import ConfirmDialog from '$lib/components/common/ConfirmDialog.svelte';
 	import Badge from '$lib/components/common/Badge.svelte';
@@ -48,7 +49,7 @@
 	let page = 1;
 
 	let showDeleteConfirmDialog = false;
-	let showAddUserModal = false;
+	let showAddItemModal = false;
 
 	let showUserChatsModal = false;
 	let showEditUserModal = false;
@@ -105,7 +106,7 @@
 />
 
 {#key selectedUser}
-	<EditUserModal
+	<EditdOrgRescModal
 		bind:show={showEditUserModal}
 		{selectedUser}
 		sessionUser={$user}
@@ -115,8 +116,8 @@
 	/>
 {/key}
 
-<AddUserModal
-	bind:show={showAddUserModal}
+<AddOrgRescModal
+	bind:show={showAddItemModal}
 	on:save={async () => {
 		users = await getUsers(localStorage.token);
 	}}
@@ -125,9 +126,7 @@
 
 <div class="mt-0.5 mb-2 gap-1 flex flex-col md:flex-row justify-between">
 	<div class="flex md:self-center text-lg font-medium px-0.5">
-		<div class="flex-shrink-0">
-			건수
-		</div>
+		<div class="flex-shrink-0">건수</div>
 		<div class="flex self-center w-[1px] h-6 mx-2.5 bg-gray-50 dark:bg-gray-850" />
 		<span class="text-lg font-medium text-gray-500 dark:text-gray-300">{users.length}</span>
 	</div>
@@ -152,16 +151,16 @@
 				<input
 					class=" w-full text-sm pr-4 py-1 rounded-r-xl outline-hidden bg-transparent"
 					bind:value={search}
-					placeholder={`$i18n.t('Resource Name') $i18n.t('Search')`}
+					placeholder={$i18n.t('Search')}
 				/>
 			</div>
 
 			<div>
-				<Tooltip content={$i18n.t('Add User')}>
+				<Tooltip content="항목추가">
 					<button
 						class=" p-2 rounded-xl hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-850 transition font-medium text-sm flex items-center space-x-1"
 						on:click={() => {
-							showAddUserModal = !showAddUserModal;
+							showAddItemModal = !showAddItemModal;
 						}}
 					>
 						<Plus className="size-3.5" />

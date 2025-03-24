@@ -1,5 +1,4 @@
 import { WEBUI_API_BASE_URL } from '$lib/constants';
-import { getUserPosition } from '$lib/utils';
 
 /**
  * 원본 리소스 조회
